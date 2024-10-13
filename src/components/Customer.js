@@ -10,7 +10,7 @@ const Customer = props => {
     id: null,
     name: "",
     description: "",
-    published: false
+    status: true
   };
   const [currentCustomer, setCurrentCustomer] = useState(initialCustomerState);
   const [message, setMessage] = useState("");
@@ -36,15 +36,17 @@ const Customer = props => {
     setCurrentCustomer({ ...currentCustomer, [name]: value });
   };
 
-  const updatePublished = status => {
+  const updateStatus = status => {
     var data = {
       id: currentCustomer.id,
-      name: currentCustomer.name
+      name: currentCustomer.name,
+      description:  currentCustomer.description,
+      status: status
     };
 
     CustomerDataService.update(currentCustomer.id, data)
       .then(response => {
-        setCurrentCustomer({ ...currentCustomer, published: status });
+        setCurrentCustomer({ ...currentCustomer, status: status });
         console.log(response.data);
       })
       .catch(e => {
@@ -107,23 +109,23 @@ const Customer = props => {
               <label>
                 <strong>Status:</strong>
               </label>
-              {currentCustomer.published ? "Published" : "Pending"}
+              {currentCustomer.status ? "Active" : "Inactive"}
             </div>
           </form>
 
-          {currentCustomer.published ? (
+          {currentCustomer.status ? (
             <button
               className="badge text-bg-primary mr-2"
-              onClick={() => updatePublished(false)}
+              onClick={() => updateStatus(false)}
             >
-              UnPublish
+              Deactivate
             </button>
           ) : (
             <button
               className="badge text-bg-primary mr-2"
-              onClick={() => updatePublished(true)}
+              onClick={() => updateStatus(true)}
             >
-              Publish
+              Activate
             </button>
           )}
 

@@ -128,7 +128,7 @@ const CustomersList = () => {
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentCustomer.published ? "Published" : "Pending"}
+              {currentCustomer.status ? "Active" : "Inactive"}
             </div>
 
             <Link

@@ -4,7 +4,9 @@ import CustomerDataService from "../services/CustomerService";
 const AddCustomer = () => {
   const initialCustomerState = {
     id: null,
-    name: ""
+    name: "",
+    description: "",
+    status: true
   };
   const [customer, setCustomer] = useState(initialCustomerState);
   const [submitted, setSubmitted] = useState(false);
@@ -17,7 +19,8 @@ const AddCustomer = () => {
   const saveCustomer = () => {
     var data = {
       name: customer.name,
-      description: customer.description
+      description: customer.description,
+      status: customer.status
     };
 
     CustomerDataService.create(data)
@@ -26,7 +29,7 @@ const AddCustomer = () => {
           id: response.data.id,
           name: response.data.name,
           description: response.data.description,
-          published: response.data.published
+          status: response.data.status
         });
         setSubmitted(true);
         console.log(response.data);
